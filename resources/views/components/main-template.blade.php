@@ -68,8 +68,12 @@
 <script src="{{ asset('js/vendor/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('js/vendor/responsive.bootstrap5.min.js') }}"></script>
 
+<!-- Sweetalert2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {{--Page Script--}}
 <script src="{{ asset('js/form-validation.js') }}"></script>
+<script src="{{ asset('js/logout.js') }}"></script>
 <script src="{{ $js ?? '' }}"></script>
 
 </body>

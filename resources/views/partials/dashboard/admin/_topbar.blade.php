@@ -116,10 +116,10 @@
                 </a>
 
                 <!-- item-->
-                <a href="/logout" class="dropdown-item notify-item">
+                <button class="dropdown-item notify-item" id="logout-btn">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>
-                </a>
+                </button>
             </div>
         </li>
 

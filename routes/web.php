@@ -24,11 +24,11 @@ Route::get('/login', [AuthController::class, 'login'])->name('login')->middlewar
 // Authentication
 Route::prefix('/auth')->group(function (){
     Route::post('/login', [UserController::class, 'login']);
+    Route::get('/logout', [UserController::class, 'logout']);
 });
-Route::get('/logout', [UserController::class, 'logout']);
 
 // Dashboards
-Route::prefix('/dashboard')->group(function (){
+Route::middleware('auth')->prefix('/dashboard')->group(function (){
     Route::prefix('/admin')->group(function (){
         Route::get('/index', [AdminDashboardController::class, 'index']);
         Route::get('/supplies', [AdminDashboardController::class, 'supplies']);
