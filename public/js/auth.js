@@ -9,14 +9,14 @@ $(function (){
     loginForm.on('submit', function (e){
         e.preventDefault();
         $.ajax({
-            url: '/api/auth/login',
+            url: '/auth/login',
             type: 'POST',
             data: loginForm.serialize(),
             dataType: 'JSON',
             success: function (response) {
                 $(alertMessage(response.message, 'success')).insertBefore(loginForm);
                 setInterval(function () {
-                    window.location.href = '/';
+                    window.location.href = response.link;
                 }, 2000);
             },
             error: function (errorResponse) {

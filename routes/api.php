@@ -19,6 +19,6 @@ use App\Http\Controllers\UserController;
 //    return $request->user();
 //});
 
-Route::prefix('/auth')->group(function (){
-    Route::post('/login', [UserController::class, 'login']);
-});
+//Route::prefix('/auth')->group(function (){
+//    Route::post('/login', [UserController::class, 'login']);
+//});

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,24 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [UserController::class, 'check_account'])->middleware('auth');
 
-Route::get('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+
+
+// Authentication
+Route::prefix('/auth')->group(function (){
+    Route::post('/login', [UserController::class, 'login']);
+});
+Route::get('/logout', [UserController::class, 'logout']);
+
+// Dashboards
+Route::prefix('/dashboard')->group(function (){
+    Route::prefix('/admin')->group(function (){
+        Route::get('/index', [AdminDashboardController::class, 'index']);
+        Route::get('/supplies', [AdminDashboardController::class, 'supplies']);
+        Route::get('/equipments', [AdminDashboardController::class, 'equipments']);
+        Route::get('/inventory', [AdminDashboardController::class, 'inventory']);
+        Route::get('/employees', [AdminDashboardController::class, 'employees']);
+    });
+});
