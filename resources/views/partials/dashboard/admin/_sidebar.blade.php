@@ -26,6 +26,13 @@
         <!--- Sidemenu -->
         <ul class="side-nav">
 
+            <li class="side-nav-title side-nav-item text-center text-white">
+                <strong>
+                    PUP BANSUD <br>
+                    INVENTORY SYSTEM
+                </strong>
+                <hr>
+            </li>
             <li class="side-nav-title side-nav-item">Navigation</li>
 
             <li class="side-nav-item">
@@ -36,6 +43,13 @@
             </li>
 
             <li class="side-nav-title side-nav-item">Setup</li>
+
+            <li class="side-nav-item">
+                <a href="{{ $dashboarLink.'categories' }}" class="side-nav-link">
+                    <i class="uil-list-ul"></i>
+                    <span> Categories </span>
+                </a>
+            </li>
 
             <li class="side-nav-item">
                 <a href="{{ $dashboarLink.'supplies' }}" class="side-nav-link">
@@ -59,9 +73,17 @@
             </li>
 
             <li class="side-nav-item">
+                <a href="{{ $dashboarLink.'requests' }}" class="side-nav-link">
+                    <i class="uil-file"></i>
+                    <span class="badge bg-secondary text-light float-end">0</span>
+                    <span> Requests </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                     <i class="uil-user"></i>
-                    <span> Account Management </span>
+                    <span> User Management </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarEcommerce">
