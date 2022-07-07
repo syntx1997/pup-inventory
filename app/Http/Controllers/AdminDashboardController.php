@@ -22,50 +22,71 @@ class AdminDashboardController extends Controller
     public function index() {
         $title = 'Admin Dashboard';
         $fragment = $this->_fragment_;
-        $dashboarLink = '/dashboard/admin/';
+        $dashboardLink = '/dashboard/admin/';
 
         return view($this->_view_.'index', compact(
-            'title', 'fragment', 'dashboarLink'
+            'title', 'fragment', 'dashboardLink'
+        ));
+    }
+
+    public function categories() {
+        $title = 'Categories';
+        $fragment = $this->_fragment_;
+        $dashboardLink = '/dashboard/admin/';
+        $js = asset('js'.$dashboardLink.'categories.js');
+
+        return view($this->_view_.'categories', compact(
+            'title', 'fragment', 'dashboardLink', 'js'
         ));
     }
 
     public function supplies() {
         $title = 'Supplies';
         $fragment = $this->_fragment_;
-        $dashboarLink = '/dashboard/admin/';
+        $dashboardLink = '/dashboard/admin/';
 
         return view($this->_view_.'supplies', compact(
-            'title', 'fragment', 'dashboarLink'
+            'title', 'fragment', 'dashboardLink'
         ));
     }
 
     public function equipments() {
         $title = 'Equipments';
         $fragment = $this->_fragment_;
-        $dashboarLink = '/dashboard/admin/';
+        $dashboardLink = '/dashboard/admin/';
 
         return view($this->_view_.'equipments', compact(
-            'title', 'fragment', 'dashboarLink'
+            'title', 'fragment', 'dashboardLink'
         ));
     }
 
     public function inventory() {
         $title = 'Inventory';
         $fragment = $this->_fragment_;
-        $dashboarLink = '/dashboard/admin/';
+        $dashboardLink = '/dashboard/admin/';
 
         return view($this->_view_.'inventory', compact(
-            'title', 'fragment', 'dashboarLink'
+            'title', 'fragment', 'dashboardLink'
+        ));
+    }
+
+    public function requests() {
+        $title = 'Requests';
+        $fragment = $this->_fragment_;
+        $dashboardLink = '/dashboard/admin/';
+
+        return view($this->_view_.'requests', compact(
+            'title', 'fragment', 'dashboardLink'
         ));
     }
 
     public function employees() {
         $title = 'Employees';
         $fragment = $this->_fragment_;
-        $dashboarLink = '/dashboard/admin/';
+        $dashboardLink = '/dashboard/admin/';
 
         return view($this->_view_.'employees', compact(
-            'title', 'fragment', 'dashboarLink'
+            'title', 'fragment', 'dashboardLink'
         ));
     }
 }

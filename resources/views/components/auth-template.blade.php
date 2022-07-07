@@ -68,6 +68,7 @@
 <script src="{{ asset('js/vendor.min.js') }}"></script>
 <script src="{{ asset('js/app.min.js') }}"></script>
 
+<script src="{{ asset('js/global-vars.js') }}"></script>
 <script src="{{ asset('js/form-validation.js') }}"></script>
 <script src="{{ asset('js/auth.js') }}"></script>
 

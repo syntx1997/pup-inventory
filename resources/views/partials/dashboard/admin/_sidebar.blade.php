@@ -36,7 +36,7 @@
             <li class="side-nav-title side-nav-item">Navigation</li>
 
             <li class="side-nav-item">
-                <a href="{{ $dashboarLink.'index' }}" class="side-nav-link">
+                <a href="{{ $dashboardLink.'index' }}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Dashboard </span>
                 </a>
@@ -45,35 +45,35 @@
             <li class="side-nav-title side-nav-item">Setup</li>
 
             <li class="side-nav-item">
-                <a href="{{ $dashboarLink.'categories' }}" class="side-nav-link">
+                <a href="{{ $dashboardLink.'categories' }}" class="side-nav-link">
                     <i class="uil-list-ul"></i>
                     <span> Categories </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ $dashboarLink.'supplies' }}" class="side-nav-link">
+                <a href="{{ $dashboardLink.'supplies' }}" class="side-nav-link">
                     <i class="uil-cart"></i>
                     <span> Supplies </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ $dashboarLink.'equipments' }}" class="side-nav-link">
+                <a href="{{ $dashboardLink.'equipments' }}" class="side-nav-link">
                     <i class="uil-print"></i>
                     <span> Equipments </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ $dashboarLink.'inventory' }}" class="side-nav-link">
+                <a href="{{ $dashboardLink.'inventory' }}" class="side-nav-link">
                     <i class="uil-file"></i>
                     <span> Inventory </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ $dashboarLink.'requests' }}" class="side-nav-link">
+                <a href="{{ $dashboardLink.'requests' }}" class="side-nav-link">
                     <i class="uil-file"></i>
                     <span class="badge bg-secondary text-light float-end">0</span>
                     <span> Requests </span>
@@ -89,7 +89,7 @@
                 <div class="collapse" id="sidebarEcommerce">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{ $dashboarLink.'employees' }}">Employees</a>
+                            <a href="{{ $dashboardLink.'employees' }}">Employees</a>
                         </li>
                     </ul>
                 </div>

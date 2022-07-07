@@ -72,6 +72,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 {{--Page Script--}}
+<script src="{{ asset('js/global-vars.js') }}"></script>
 <script src="{{ asset('js/form-validation.js') }}"></script>
 <script src="{{ asset('js/logout.js') }}"></script>
 <script src="{{ $js ?? '' }}"></script>

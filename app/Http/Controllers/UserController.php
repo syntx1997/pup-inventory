@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\RateLimiter;
 
 class UserController extends Controller
 {
+    protected $maxAttempts = 3; // Default is 5
+    protected $decayMinutes = 1; // Default is 1
+
     public function login(Request $request) {
+        $this->checkTooManyFailedAttempts();
+
         $fields = $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -19,6 +26,7 @@ class UserController extends Controller
 
         // check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
+            RateLimiter::hit($this->throttleKey(), $seconds = 3600);
             return response([
                 'message' => 'Invalid credentials!'
             ], 401);
@@ -38,6 +46,8 @@ class UserController extends Controller
                     break;
             }
         }
+
+        RateLimiter::clear($this->throttleKey());
 
         return response([
             'message' => 'Logged In!',
@@ -69,5 +79,17 @@ class UserController extends Controller
         return response([
             'message' => 'You have been logged out!'
         ], 201);
+    }
+
+    private function throttleKey() {
+        return Str::lower(request('email')) . '|' . request()->ip();
+    }
+
+    private function checkTooManyFailedAttempts() {
+        if(! RateLimiter::tooManyAttempts($this->throttleKey(), 3)) {
+            return;
+        }
+
+        throw new \Exception('IP address banned. Too many login attempts.');
     }
 }

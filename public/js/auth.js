@@ -1,10 +1,6 @@
 const loginForm = $('#login-form');
 const loginSubmitBtn = loginForm.find('button[type="submit"]');
 
-const spinner = '<div class="spinner-border spinner-border-sm" role="status">'+
-                    '<span class="visually-hidden">Loading...</span>'+
-                '</div>';
-
 $(function (){
     loginForm.on('submit', function (e){
         e.preventDefault();

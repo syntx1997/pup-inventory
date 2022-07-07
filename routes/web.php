@@ -29,11 +29,16 @@ Route::prefix('/auth')->group(function (){
 
 // Dashboards
 Route::middleware('auth')->prefix('/dashboard')->group(function (){
+
+    // Admin
     Route::prefix('/admin')->group(function (){
         Route::get('/index', [AdminDashboardController::class, 'index']);
+        Route::get('/categories', [AdminDashboardController::class, 'categories']);
         Route::get('/supplies', [AdminDashboardController::class, 'supplies']);
         Route::get('/equipments', [AdminDashboardController::class, 'equipments']);
         Route::get('/inventory', [AdminDashboardController::class, 'inventory']);
+        Route::get('/requests', [AdminDashboardController::class, 'requests']);
         Route::get('/employees', [AdminDashboardController::class, 'employees']);
     });
+
 });

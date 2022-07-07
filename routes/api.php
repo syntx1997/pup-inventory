@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,10 @@ use App\Http\Controllers\UserController;
 //Route::prefix('/auth')->group(function (){
 //    Route::post('/login', [UserController::class, 'login']);
 //});
+
+
+// Categories
+Route::get('/category', [CategoryController::class, 'get_all']);
+Route::post('/category', [CategoryController::class, 'add']);
+Route::put('/category', [CategoryController::class, 'edit']);
+Route::delete('/category', [CategoryController::class, 'delete']);
