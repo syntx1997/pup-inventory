@@ -1,27 +1,33 @@
 <x-main-template :title="$title" :fragment="$fragment" :dashboardLink="$dashboardLink" :js="$js">
     @include('partials._page-title')
 
-    <div class="text-end mb-4">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#add-category-modal">
-            <i class="uil-plus"></i> Add Category
-        </button>
-    </div>
-
-    <div class="table-responsive">
-        <table id="categories-table" class="table bg-white" style="width: 100%">
-            <thead class="bg-light">
-            <tr>
-                <th class="text-center">ID#</th>
-                <th class="text-center">Category Name</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-center" colspan="3">no data</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-header">
+            <div class="float-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-category-modal">
+                    <i class="uil-plus"></i> Add Category
+                </button>
+            </div>
+            <h5><strong>{{ $title }}</strong></h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="categories-table" class="table" style="width: 100%">
+                    <thead class="bg-light">
+                    <tr>
+                        <th class="text-center">ID#</th>
+                        <th class="text-center">Category Name</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center" colspan="3">no data</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <div id="add-category-modal" class="modal fade" tabindex="-1">
@@ -41,7 +47,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-secondary">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>
@@ -66,7 +72,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-secondary">Edit</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
                 </div>
             </form>
         </div>

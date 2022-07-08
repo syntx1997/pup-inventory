@@ -29,7 +29,7 @@ class UserController extends Controller
             ], 401);
         }
 
-        if(auth()->attempt($fields)) {
+        if(auth()->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
             $request->session()->regenerate();
             switch (auth()->user()->role) {
                 case 'Administrator':
@@ -42,6 +42,8 @@ class UserController extends Controller
                     $link = '';
                     break;
             }
+        } else {
+            return response(['message' => 'Sorry, you account was deactivated by the admin.'], 401);
         }
 
         RateLimiter::clear($this->throttleKey());

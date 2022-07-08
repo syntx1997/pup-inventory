@@ -17,7 +17,7 @@ class CreateStocksTable extends Migration
             $table->id();
             $table->foreignId('item_id');
             $table->bigInteger('quantity');
-            $table->decimal('cost', 5, 2);
+            $table->decimal('cost', 11, 2);
             $table->string('supplier');
             $table->timestamps();
         });

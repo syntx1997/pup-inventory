@@ -28,6 +28,18 @@ class ItemController extends Controller
             $stock_editable = '<button id="restock-btn" type="button" class="btn btn-link" '.$attribute.'>'.$item->stock.'</button>';
             $critical_editable = '<button id="critical-btn" type="button" class="btn btn-link" '.$attribute.'>'.$item->critical.'</button>';
 
+            if($item->stock <= $item->critical) {
+                $stock_status = '<span class="badge badge-danger-lighten p-2">Critical</span>';
+            } else {
+                $stock_status = '<span class="badge badge-success-lighten p-2">Safe</span>';
+            }
+
+            $stocks = [];
+            $stocksData = Stock::find($item->id);
+            if($stocksData !== null) {
+                $stocks = $stocksData->get();
+            }
+
             $data[] = [
                 'id' => $item->id,
                 'category' => $category_name,
@@ -37,6 +49,8 @@ class ItemController extends Controller
                 'critical' => $item->critical,
                 'critical_editable' => $critical_editable,
                 'description' => $item->description,
+                'stocks' => $stocks,
+                'stock_status' => $stock_status,
                 'action' => $action
             ];
         }

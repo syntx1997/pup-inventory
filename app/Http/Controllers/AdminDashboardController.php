@@ -71,9 +71,10 @@ class AdminDashboardController extends Controller
         $title = 'Inventory';
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
+        $js = asset('js'.$dashboardLink.'inventory.js');
 
         return view($this->_view_.'inventory', compact(
-            'title', 'fragment', 'dashboardLink'
+            'title', 'fragment', 'dashboardLink', 'js'
         ));
     }
 
@@ -91,9 +92,10 @@ class AdminDashboardController extends Controller
         $title = 'Employees';
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
+        $js = asset('js'.$dashboardLink.'employees.js');
 
         return view($this->_view_.'employees', compact(
-            'title', 'fragment', 'dashboardLink'
+            'title', 'fragment', 'dashboardLink', 'js'
         ));
     }
 }

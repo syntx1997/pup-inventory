@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('designation')->nullable();
             $table->string('office')->nullable();
             $table->string('role');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

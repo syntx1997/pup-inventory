@@ -1,28 +1,38 @@
-const addForm = $('#add-category-form');
-const addModal = $('#add-category-modal');
+const addForm = $('#add-employee-form');
 const addSubmitBtn = addForm.find('button[type="submit"]');
+const addModal = $('#add-employee-modal');
 
-const editForm = $('#edit-category-form');
-const editModal = $('#edit-category-modal');
+const editForm = $('#edit-employee-form');
 const editSubmitBtn = editForm.find('button[type="submit"]');
+const editModal = $('#edit-employee-modal');
 
-const api = '/api/category/';
-const table = $('#categories-table');
+const table =  $('#employees-table');
+const api = '/api/employee/';
 
 $(function (){
 
-    const categoriesDataTable = table.DataTable({
+    const employeesDataTable = table.DataTable({
         'ajax': api,
         'columns': [
             {
                 'className': 'text-center',
                 'orderable': false,
-                'data': 'id'
+                'data': 'name'
             },
             {
                 'className': 'text-center',
                 'orderable': false,
-                'data': 'name'
+                'data': 'email'
+            },
+            {
+                'className': 'text-center',
+                'orderable': false,
+                'data': 'designation'
+            },
+            {
+                'className': 'text-center',
+                'orderable': false,
+                'data': 'office'
             },
             {
                 'className': 'text-center',
@@ -35,8 +45,8 @@ $(function (){
                 previous: "<i class='mdi mdi-chevron-left'>",
                 next: "<i class='mdi mdi-chevron-right'>"
             },
-            info: "Showing categories _START_ to _END_ of _TOTAL_",
-            lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="5">5</option><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> categories'
+            info: "Showing employees _START_ to _END_ of _TOTAL_",
+            lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="5">5</option><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> employees'
         },
         pageLength: 5,
         select: {
@@ -50,7 +60,7 @@ $(function (){
         }
     });
 
-    addForm.on('submit', function (e) {
+    addForm.on('submit', function (e){
         e.preventDefault();
         $.ajax({
             url: api,
@@ -67,6 +77,9 @@ $(function (){
                 if(errorJSON.errors) {
                     const error = errorJSON.errors;
                     fieldValidation(formInput(addForm, 'input', 'name'), error.name);
+                    fieldValidation(formInput(addForm, 'input', 'designation'), error.designation);
+                    fieldValidation(formInput(addForm, 'input', 'office'), error.office);
+                    fieldValidation(formInput(addForm, 'input', 'email'), error.email);
                 }
             },
             beforeSend: function () {
@@ -79,7 +92,7 @@ $(function (){
         });
     });
 
-    editForm.on('submit', function (e) {
+    editForm.on('submit', function (e){
         e.preventDefault();
         $.ajax({
             url: api,
@@ -96,9 +109,9 @@ $(function (){
                 if(errorJSON.errors) {
                     const error = errorJSON.errors;
                     fieldValidation(formInput(editForm, 'input', 'name'), error.name);
-                }
-                if(errorJSON.error) {
-                    editForm.find('#notification').html(alertMessage(errorJSON.error, 'danger'));
+                    fieldValidation(formInput(editForm, 'input', 'designation'), error.designation);
+                    fieldValidation(formInput(editForm, 'input', 'office'), error.office);
+                    fieldValidation(formInput(editForm, 'input', 'email'), error.email);
                 }
             },
             beforeSend: function () {
@@ -113,16 +126,19 @@ $(function (){
 
 });
 
-$(document).on('click', '#edit-category-btn', function () {
+$(document).on('click', '#edit-btn', function (){
     const data = $(this).data();
 
     formInput(editForm, 'input', 'name').val(data.name);
+    formInput(editForm, 'input', 'designation').val(data.designation);
+    formInput(editForm, 'input', 'office').val(data.office);
+    formInput(editForm, 'input', 'email').val(data.email);
     formInput(editForm, 'input', 'id').val(data.id);
 
     showModal(editModal);
 });
 
-$(document).on('click', '#delete-category-btn', function () {
+$(document).on('click', '#archive-btn', function (){
     const data = $(this).data();
     Swal.fire({
         title: 'Are you sure?',
@@ -131,12 +147,12 @@ $(document).on('click', '#delete-category-btn', function () {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes, archive it!'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: api,
-                type: 'DELETE',
+                url: api + 'archive',
+                type: 'POST',
                 data: {id: data.id},
                 dataType: 'JSON',
                 success: function (response) {

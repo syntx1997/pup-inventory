@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,8 @@ Route::post('/item', [ItemController::class, 'add']);
 Route::put('/item', [ItemController::class, 'edit']);
 Route::delete('/item', [ItemController::class, 'delete']);
 
+// Employees
+Route::get('/employee', [EmployeeController::class, 'get_all']);
+Route::post('/employee', [EmployeeController::class, 'add']);
+Route::put('/employee', [EmployeeController::class, 'edit']);
+Route::post('/employee/archive', [EmployeeController::class, 'archive']);

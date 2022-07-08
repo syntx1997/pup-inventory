@@ -40,7 +40,7 @@
             <div class="modal-footer">
                 <input type="hidden" name="item_id">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-secondary">Add Stock</button>
+                <button type="submit" class="btn btn-primary">Add Stock</button>
             </div>
         </form>
     </div>

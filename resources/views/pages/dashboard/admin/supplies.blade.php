@@ -1,30 +1,36 @@
 <x-main-template :title="$title" :fragment="$fragment" :dashboardLink="$dashboardLink" :js="$js">
     @include('partials._page-title')
 
-    <div class="text-end mb-4">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#add-supply-modal">
-            <i class="uil-plus"></i> Add Supply Item
-        </button>
-    </div>
-
-    <div class="table-responsive">
-        <table id="supplies-table" class="table bg-white" style="width: 100%">
-            <thead class="bg-light">
-            <tr>
-                <th class="text-center"></th>
-                <th class="text-center">Category</th>
-                <th class="text-center">Item Name</th>
-                <th class="text-center">Stock</th>
-                <th class="text-center">Critical Stock</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-center" colspan="6">no data</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-header">
+            <div class="float-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-supply-modal">
+                    <i class="uil-plus"></i> Add Supply Item
+                </button>
+            </div>
+            <h5><strong>{{ $title }}</strong></h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="supplies-table" class="table bg-white" style="width: 100%">
+                    <thead class="bg-light">
+                    <tr>
+                        <th class="text-center"></th>
+                        <th class="text-center">Category</th>
+                        <th class="text-center">Item Name</th>
+                        <th class="text-center">Stock</th>
+                        <th class="text-center">Critical Stock</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center" colspan="6">no data</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <div id="add-supply-modal" class="modal fade" tabindex="-1">
@@ -61,7 +67,7 @@
                 <div class="modal-footer">
                     <input type="hidden" name="type" value="supply">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-secondary">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>
@@ -102,7 +108,7 @@
                     <input type="hidden" name="type" value="supply">
                     <input type="hidden" name="id">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-secondary">Edit</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
                 </div>
             </form>
         </div>
@@ -134,7 +140,7 @@
                 <div class="modal-footer">
                     <input type="hidden" name="item_id">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-secondary">Update</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>
