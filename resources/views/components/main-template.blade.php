@@ -15,6 +15,9 @@
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet" type="text/css" id="light-style">
     <link href="{{ asset('css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style">
 
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css">
+
     <!-- Datatables css -->
     <link href="{{ asset('css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/vendor/responsive.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
@@ -57,7 +60,6 @@
 </div>
 <!-- END wrapper -->
 
-
 <!-- bundle -->
 <script src="{{ asset('js/vendor.min.js') }}"></script>
 <script src="{{ asset('js/app.min.js') }}"></script>
@@ -76,6 +78,7 @@
 <script src="{{ asset('js/form-validation.js') }}"></script>
 <script src="{{ asset('js/logout.js') }}"></script>
 <script src="{{ $js ?? '' }}"></script>
+<script src="{{ asset('js/restock.js') }}"></script>
 
 </body>
 </html>

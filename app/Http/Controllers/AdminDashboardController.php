@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class AdminDashboardController extends Controller
 {
@@ -44,9 +45,12 @@ class AdminDashboardController extends Controller
         $title = 'Supplies';
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
+        $categories = Category::all();
+        $js = asset('js'.$dashboardLink.'supplies.js');
 
         return view($this->_view_.'supplies', compact(
-            'title', 'fragment', 'dashboardLink'
+            'title', 'fragment', 'dashboardLink',
+            'categories', 'js'
         ));
     }
 
@@ -54,9 +58,12 @@ class AdminDashboardController extends Controller
         $title = 'Equipments';
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
+        $categories = Category::all();
+        $js = asset('js'.$dashboardLink.'equipments.js');
 
         return view($this->_view_.'equipments', compact(
-            'title', 'fragment', 'dashboardLink'
+            'title', 'fragment', 'dashboardLink',
+            'categories', 'js'
         ));
     }
 

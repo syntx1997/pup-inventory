@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +29,12 @@ Route::get('/category', [CategoryController::class, 'get_all']);
 Route::post('/category', [CategoryController::class, 'add']);
 Route::put('/category', [CategoryController::class, 'edit']);
 Route::delete('/category', [CategoryController::class, 'delete']);
+
+// Items | Supply or Equipment
+Route::get('/item/get-all/{type}', [ItemController::class, 'get_all']);
+Route::post('/item/restock', [ItemController::class, 'restock']);
+Route::post('/item/set-critical', [ItemController::class, 'set_critical']);
+Route::post('/item', [ItemController::class, 'add']);
+Route::put('/item', [ItemController::class, 'edit']);
+Route::delete('/item', [ItemController::class, 'delete']);
+

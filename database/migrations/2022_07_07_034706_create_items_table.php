@@ -17,7 +17,9 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->foreignId('category_id');
             $table->string('name')->unique();
-            $table->string('description');
+            $table->bigInteger('stock')->default(0);
+            $table->bigInteger('critical')->default(0);
+            $table->longText('description');
             $table->string('type');
             $table->timestamps();
         });

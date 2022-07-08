@@ -1,0 +1,7 @@
+td.details-control {
+    background: url('/images/icons/arrow/icons8-forward-24.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('/images/icons/arrow/icons8-expand-arrow-24.png') no-repeat center center;
+}

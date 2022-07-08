@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class UserController extends Controller
 {
-    protected $maxAttempts = 3; // Default is 5
-    protected $decayMinutes = 1; // Default is 1
-
     public function login(Request $request) {
         $this->checkTooManyFailedAttempts();
 
