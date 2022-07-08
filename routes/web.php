@@ -31,7 +31,7 @@ Route::prefix('/auth')->group(function (){
 Route::middleware('auth')->prefix('/dashboard')->group(function (){
 
     // Admin
-    Route::prefix('/admin')->group(function (){
+    Route::middleware('admin.only')->prefix('/admin')->group(function (){
         Route::get('/index', [AdminDashboardController::class, 'index']);
         Route::get('/categories', [AdminDashboardController::class, 'categories']);
         Route::get('/supplies', [AdminDashboardController::class, 'supplies']);
@@ -39,6 +39,13 @@ Route::middleware('auth')->prefix('/dashboard')->group(function (){
         Route::get('/inventory', [AdminDashboardController::class, 'inventory']);
         Route::get('/requests', [AdminDashboardController::class, 'requests']);
         Route::get('/employees', [AdminDashboardController::class, 'employees']);
+    });
+
+    // Employee
+    Route::middleware('employee.only')->prefix('employee')->group(function (){
+        Route::get('/index', function (){
+            return 'Employee';
+        });
     });
 
 });
