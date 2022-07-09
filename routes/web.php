@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\EmployeeDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,9 +44,7 @@ Route::middleware('auth')->prefix('/dashboard')->group(function (){
 
     // Employee
     Route::middleware('employee.only')->prefix('employee')->group(function (){
-        Route::get('/index', function (){
-            return 'Employee';
-        });
+        Route::get('/index', [EmployeeDashboardController::class, 'index']);
     });
 
 });

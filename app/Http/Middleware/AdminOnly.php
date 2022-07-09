@@ -17,7 +17,7 @@ class AdminOnly
     public function handle(Request $request, Closure $next)
     {
         if(auth()->user()->role != 'Administrator') {
-            return redirect('/dashboard/employee/index');
+            return redirect('/');
         } else {
             return $next($request);
         }

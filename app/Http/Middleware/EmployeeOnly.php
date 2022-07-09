@@ -17,7 +17,7 @@ class EmployeeOnly
     public function handle(Request $request, Closure $next)
     {
         if(auth()->user()->role != 'Employee') {
-            return redirect('/dashboard/admin/index');
+            return redirect('/');
         } else {
             return $next($request);
         }
