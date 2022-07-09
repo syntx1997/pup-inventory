@@ -57,25 +57,31 @@ $(function (){
     $('#move-requests-btn').on('click', function (){
         const selectedRows = itemsDataTable.rows('.selected').data();
         if(selectedRows.length > 0) {
+            let total_no_stock = 0;
             selectedRows.map((row) => {
                 itemsDataTable.ajax.reload(null);
-                $('#toRequest-table > tbody:last-child').append(
-                    '<tr>' +
+                if(row.stock > 0) {
+                    $('#toRequest-table > tbody:last-child').append(
+                        '<tr>' +
                         '<td class="text-center">'+ row.category +' <input type="hidden" name="item['+row.id+'][category]" value="'+row.category+'"></td>'+
                         '<td class="text-center">'+ row.name +' <input type="hidden" name="item['+row.id+'][name]" value="'+row.name+'"</td>'+
                         '<td class="text-center">'+ row.description +'</td>'+
                         '<td class="text-center">'+ row.stock +'</td>'+
                         '<td class="text-center">'+
-                            '<div class="input-group input-group-sm flex-nowrap">'+
-                                '<span class="input-group-text sub border-dark" id="addon-wrapping">-</span>'+
-                                '<input id="quantity" name="item['+row.id+'][quantity]" type="number" class="form-control text-center border-dark bg-white" min="1" max="'+ row.stock +'" value="1" style="width: 20px !important" required readonly>'+
-                                '<span class="input-group-text add border-dark" id="addon-wrapping">+</span>'+
-                            '</div>'+
+                        '<div class="input-group input-group-sm flex-nowrap">'+
+                        '<span class="input-group-text sub border-dark" id="addon-wrapping">-</span>'+
+                        '<input id="quantity" name="item['+row.id+'][quantity]" type="number" class="form-control text-center border-dark bg-white" min="1" max="'+ row.stock +'" value="1" style="width: 20px !important" required readonly>'+
+                        '<span class="input-group-text add border-dark" id="addon-wrapping">+</span>'+
+                        '</div>'+
                         '</td>'+
                         '<td class="text-center"><button id="delete-req-item-btn" type="button" class="btn btn-link"><i class="uil-trash text-danger"></i></button></td>'+
-                    '</tr>>'
-                );
+                        '</tr>>'
+                    );
+                } else {
+                    total_no_stock += 1;
+                }
             });
+            Swal.fire('Error', 'There was an item(s) that you selected that has zero(0) or no stock and can\'t be added on your request.', 'error');
         } else {
             Swal.fire(
                 'Error',
