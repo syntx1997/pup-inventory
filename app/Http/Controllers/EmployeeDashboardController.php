@@ -30,4 +30,15 @@ class EmployeeDashboardController extends Controller
             'title', 'fragment', 'dashboardLink'
         ));
     }
+
+    public function requests() {
+        $title = 'My Requests';
+        $fragment = $this->_fragment_;
+        $dashboardLink = $this->_dashboardLink_;
+        $js = asset('js'.$dashboardLink.'requests.js');
+
+        return view($this->_view_.'requests', compact(
+            'title', 'fragment', 'dashboardLink', 'js'
+        ));
+    }
 }

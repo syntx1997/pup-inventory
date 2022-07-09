@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +26,13 @@ use App\Http\Controllers\EmployeeController;
 //});
 
 
-// Categories
+// Category
 Route::get('/category', [CategoryController::class, 'get_all']);
 Route::post('/category', [CategoryController::class, 'add']);
 Route::put('/category', [CategoryController::class, 'edit']);
 Route::delete('/category', [CategoryController::class, 'delete']);
 
-// Items | Supply or Equipment
+// Item | Supply or Equipment
 Route::get('/item/get-all/{type}', [ItemController::class, 'get_all']);
 Route::post('/item/restock', [ItemController::class, 'restock']);
 Route::post('/item/set-critical', [ItemController::class, 'set_critical']);
@@ -39,8 +40,11 @@ Route::post('/item', [ItemController::class, 'add']);
 Route::put('/item', [ItemController::class, 'edit']);
 Route::delete('/item', [ItemController::class, 'delete']);
 
-// Employees
+// Employee
 Route::get('/employee', [EmployeeController::class, 'get_all']);
 Route::post('/employee', [EmployeeController::class, 'add']);
 Route::put('/employee', [EmployeeController::class, 'edit']);
 Route::post('/employee/archive', [EmployeeController::class, 'archive']);
+
+// Request
+Route::post('/request', [RequestController::class, 'add']);
