@@ -16,7 +16,7 @@
     </div>
 
     <div id="request-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <form id="request-form" class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <i class="uil-plus"></i> Request Supply / Equipment</h5>

@@ -70,9 +70,9 @@ $(function (){
                             '<td class="text-center">'+ row.stock +'</td>'+
                             '<td class="text-center">'+
                             '<div class="input-group input-group-sm flex-nowrap">'+
-                            '<span class="input-group-text sub border-dark" id="addon-wrapping">-</span>'+
-                            '<input id="quantity" name="item['+row.id+'][quantity]" type="number" class="form-control text-center border-dark bg-white" min="1" max="'+ row.stock +'" value="1" style="width: 20px !important" required readonly>'+
-                            '<span class="input-group-text add border-dark" id="addon-wrapping">+</span>'+
+                            '<button class="input-group-text sub border-dark" id="addon-wrapping">-</button>'+
+                            '<input id="quantity" name="item['+row.id+'][quantity]" type="text" class="form-control text-center border-dark bg-white" min="1" max="'+ row.stock +'" value="1" style="width: 20px !important" required readonly>'+
+                            '<button class="input-group-text add border-dark" id="addon-wrapping">+</button>'+
                             '</div>'+
                             '</td>'+
                             '<td class="text-center"><button id="delete-req-item-btn" type="button" class="btn btn-link"><i class="uil-trash text-danger"></i></button></td>'+
