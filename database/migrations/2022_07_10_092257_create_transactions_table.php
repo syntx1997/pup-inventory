@@ -16,9 +16,9 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_id');
-            $table->string('name');
-            $table->string('designation');
-            $table->string('office');
+            $table->foreignId('user_id');
+            $table->string('status')->default('On Process');
+            $table->longText('message')->nullable();
             $table->timestamps();
         });
     }

@@ -16,9 +16,8 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaction_id');
-            $table->string('name');
-            $table->string('description');
-            $table->string('quantity');
+            $table->foreignId('item_id');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

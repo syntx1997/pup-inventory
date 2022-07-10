@@ -16,7 +16,7 @@ class ItemController extends Controller
         $items = Item::where('type', $type)->get();
         foreach ($items as $item) {
 
-            $category = Category::find($item->category_id)->first();
+            $category = Category::where('id', $item->category_id)->first();
             $category_name = $category->name;
 
             $attribute =    ' data-id="'.$item->id.'" data-category_id="'.$item->category_id.'" data-name="'.$item->name.'""
@@ -42,6 +42,7 @@ class ItemController extends Controller
 
             $data[] = [
                 'id' => $item->id,
+                'category_id' => $item->category_id,
                 'category' => $category_name,
                 'name' => $item->name,
                 'stock' => $item->stock,

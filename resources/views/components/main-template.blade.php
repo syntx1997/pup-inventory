@@ -87,6 +87,9 @@
 </script>
 
 {{--Page Script--}}
+<script>
+    const user_id = '{{ auth()->user()->id }}';
+</script>
 <script src="{{ asset('js/global-vars.js') }}"></script>
 <script src="{{ asset('js/form-validation.js') }}"></script>
 <script src="{{ asset('js/logout.js') }}"></script>

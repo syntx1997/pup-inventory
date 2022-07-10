@@ -48,3 +48,4 @@ Route::post('/employee/archive', [EmployeeController::class, 'archive']);
 
 // Request
 Route::post('/request', [RequestController::class, 'add']);
+Route::get('/request/get-all/{user_id}', [RequestController::class, 'get_all']);

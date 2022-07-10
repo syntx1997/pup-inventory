@@ -1,14 +1,63 @@
 const requestForm = $('#request-form');
 const requestSubmitBtn = requestForm.find('button[type="submit"]');
+const requestModal = $('#request-modal');
 
 const itemTypeSelect = $('select[name="type"]');
+
 const itemsTable = $('#items-table');
+const requestsTable = $('#requests-table');
+
 const api = '/api/item/';
 const reqAPI = '/api/request/';
 
 $(function (){
+    const requestsDataTable = requestsTable.DataTable({
+        'ajax': reqAPI+'get-all/'+user_id,
+        'columns': [
+            {
+                'className': 'details-control',
+                'orderable': false,
+                'data': '',
+                'defaultContent': ''
+            },
+            {
+                'className': 'text-center',
+                'orderable': false,
+                'data': 'transaction_id'
+            },
+            {
+                'className': 'text-center',
+                'orderable': false,
+                'data': 'name'
+            },
+            {
+                'className': 'text-center',
+                'orderable': false,
+                'data': 'office'
+            },
+            {
+                'className': 'text-center',
+                'orderable': false,
+                'data': 'status'
+            }
+        ]
+    });
+
+    $('#requests-table tbody').on('click', 'td.details-control', function() {
+        const tr = $(this).closest('tr');
+        const row = requestsDataTable.row( tr );
+
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            row.child( more_details( row.data() ) ).show();
+            tr.addClass('shown');
+        }
+    });
+
     const itemsDataTable = itemsTable.DataTable({
-        'ajax': api + 'get-all/supply',
+        'ajax': api+'get-all/supply',
         'columns': [
             {
                 'className': 'text-center',
@@ -63,24 +112,24 @@ $(function (){
                 if(row.stock > 0) {
                     if($('#toRequest-table').find('#row-'+row.id).length < 1) {
                         $('#toRequest-table > tbody:last-child').append(
-                            '<tr id="row-'+row.id+'">' +
-                            '<td class="text-center">'+ row.category +' <input type="hidden" name="item['+row.id+'][category]" value="'+row.category+'"></td>'+
-                            '<td class="text-center">'+ row.name +' <input type="hidden" name="item['+row.id+'][name]" value="'+row.name+'"</td>'+
-                            '<td class="text-center">'+ row.description +'</td>'+
-                            '<td class="text-center">'+ row.stock +'</td>'+
-                            '<td class="text-center">'+
-                            '<div class="input-group input-group-sm flex-nowrap">'+
-                            '<button class="input-group-text sub border-dark" id="addon-wrapping">-</button>'+
-                            '<input id="quantity" name="item['+row.id+'][quantity]" type="text" class="form-control text-center border-dark bg-white" min="1" max="'+ row.stock +'" value="1" style="width: 20px !important" required readonly>'+
-                            '<button class="input-group-text add border-dark" id="addon-wrapping">+</button>'+
-                            '</div>'+
-                            '</td>'+
-                            '<td class="text-center"><button id="delete-req-item-btn" type="button" class="btn btn-link"><i class="uil-trash text-danger"></i></button></td>'+
-                            '</tr>>'
+                            `
+                                <tr id="row-${row.id}">
+                                    <td class="text-center">${row.category}</td>
+                                    <td class="text-center">${row.name}</td>
+                                    <td class="text-center">${row.description}</td>
+                                    <td class="text-center">${row.stock}</td>
+                                    <td class="text-center">
+                                        <div class="input-group input-group-sm flex-nowrap">
+                                            <button type="button" class="input-group-text sub border-dark" id="addon-wrapping">-</button>
+                                            <input id="quantity" name="item[${row.id}][quantity]" type="text" class="form-control text-center border-dark bg-white" min="1" max="'+ row.stock +'" value="1" style="width: 20px !important" required readonly>
+                                            <button type="button" class="input-group-text add border-dark" id="addon-wrapping">+</button>
+                                            <input name="item[${row.id}][item_id]" type="hidden" value="${row.id}">
+                                        </div>
+                                    </td>
+                                    <td class="text-center"><button id="delete-req-item-btn" type="button" class="btn btn-link"><i class="uil-trash text-danger"></i></button></td>
+                                </tr>
+                            `
                         );
-                        console.log(1);
-                    } else {
-                        console.log(0);
                     }
                 } else {
                     total_no_stock += 1;
@@ -99,8 +148,7 @@ $(function (){
     });
 
     $('#reset-btn').on('click', function (){
-        itemsTable.DataTable().ajax.reload();
-        $('#toRequest-table > tbody').empty();
+       resetRequest();
     });
 
     itemTypeSelect.on('change', function () {
@@ -116,7 +164,9 @@ $(function (){
             data: requestForm.serialize(),
             dataType: 'JSON',
             success: function (response) {
-                console.log(response);
+                resetRequest();
+                hideModal(requestModal);
+                reloadDataTable(requestsTable);
             },
             error: function (errorResponse){
                 const errorJSON = errorResponse.responseJSON;
@@ -125,10 +175,10 @@ $(function (){
                 }
             },
             beforeSend: function () {
-
+                submitBtnBeforeSend(requestSubmitBtn, 'Sending Request');
             },
             complete: function () {
-
+                submitBtnAfterSend(requestSubmitBtn, 'Request');
             }
         });
     });
@@ -145,7 +195,6 @@ $(document).on('keypress', '#quantity', function (event){
 
 $(document).on('click', '#delete-req-item-btn', function (){
     $(this).parents('tr').remove();
-    console.log(1);
 });
 
 $(document).on('click', '.add', function (){
@@ -159,3 +208,38 @@ $(document).on('click', '.sub', function (){
         if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
     }
 });
+
+function resetRequest() {
+    itemsTable.DataTable().ajax.reload();
+    $('#toRequest-table > tbody').empty();
+}
+
+function more_details(data) {
+    let items = '';
+
+    data.items.map((item) => {
+        items += `
+            <tr>
+                <td class="text-center">${item.name}</td>
+                <td class="text-center">${item.description}</td>
+                <td class="text-center">${item.quantity}</td>
+            </tr>
+        `;
+    });
+
+   return `
+        <h5 class="text-center"><strong>Items Request/s (${data.items.length})</strong></h5>
+        <table class="table border" style="width: 100%">
+            <thead class="bg-light">
+                <tr>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${items}
+            </tbody>
+        </table>
+   `;
+}

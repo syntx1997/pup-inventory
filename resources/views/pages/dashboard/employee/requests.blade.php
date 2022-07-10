@@ -10,13 +10,23 @@
             </div>
             <h5><strong>{{ $title }}</strong></h5>
         </div>
-        <div class="card-body">
-
+        <div class="card-body table-responsive">
+            <table id="requests-table" class="table table-striped" style="width: 100%">
+                <thead>
+                <tr>
+                    <th class="text-center"></th>
+                    <th class="text-center">Transaction ID</th>
+                    <th class="text-center">Requestor</th>
+                    <th class="text-center">Office</th>
+                    <th class="text-center">Status</th>
+                </tr>
+                </thead>
+            </table>
         </div>
     </div>
 
     <div id="request-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <form id="request-form" class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <i class="uil-plus"></i> Request Supply / Equipment</h5>
@@ -71,6 +81,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Request</button>
                 </div>
