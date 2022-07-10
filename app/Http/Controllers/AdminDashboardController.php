@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Transaction;
 
 class AdminDashboardController extends Controller
 {
@@ -24,9 +24,10 @@ class AdminDashboardController extends Controller
         $title = 'Admin Dashboard';
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
 
         return view($this->_view_.'index', compact(
-            'title', 'fragment', 'dashboardLink'
+            'title', 'fragment', 'dashboardLink', 'totalRequests'
         ));
     }
 
@@ -35,9 +36,10 @@ class AdminDashboardController extends Controller
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
         $js = asset('js'.$dashboardLink.'categories.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
 
         return view($this->_view_.'categories', compact(
-            'title', 'fragment', 'dashboardLink', 'js'
+            'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
         ));
     }
 
@@ -47,10 +49,11 @@ class AdminDashboardController extends Controller
         $dashboardLink = '/dashboard/admin/';
         $categories = Category::all();
         $js = asset('js'.$dashboardLink.'supplies.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
 
         return view($this->_view_.'supplies', compact(
             'title', 'fragment', 'dashboardLink',
-            'categories', 'js'
+            'categories', 'js', 'totalRequests'
         ));
     }
 
@@ -60,10 +63,11 @@ class AdminDashboardController extends Controller
         $dashboardLink = '/dashboard/admin/';
         $categories = Category::all();
         $js = asset('js'.$dashboardLink.'equipments.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
 
         return view($this->_view_.'equipments', compact(
             'title', 'fragment', 'dashboardLink',
-            'categories', 'js'
+            'categories', 'js', 'totalRequests'
         ));
     }
 
@@ -72,9 +76,11 @@ class AdminDashboardController extends Controller
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
         $js = asset('js'.$dashboardLink.'inventory.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
 
         return view($this->_view_.'inventory', compact(
-            'title', 'fragment', 'dashboardLink', 'js'
+            'title', 'fragment', 'dashboardLink', 'js',
+            'totalRequests'
         ));
     }
 
@@ -82,9 +88,12 @@ class AdminDashboardController extends Controller
         $title = 'Requests';
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
+        $js = asset('js'.$dashboardLink.'requests.js');
 
         return view($this->_view_.'requests', compact(
-            'title', 'fragment', 'dashboardLink'
+            'title', 'fragment', 'dashboardLink',
+            'totalRequests', 'js'
         ));
     }
 
@@ -93,9 +102,10 @@ class AdminDashboardController extends Controller
         $fragment = $this->_fragment_;
         $dashboardLink = '/dashboard/admin/';
         $js = asset('js'.$dashboardLink.'employees.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
 
         return view($this->_view_.'employees', compact(
-            'title', 'fragment', 'dashboardLink', 'js'
+            'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
         ));
     }
 }

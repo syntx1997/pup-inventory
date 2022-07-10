@@ -48,4 +48,7 @@ Route::post('/employee/archive', [EmployeeController::class, 'archive']);
 
 // Request
 Route::post('/request', [RequestController::class, 'add']);
+Route::get('/request/all', [RequestController::class, 'all']);
 Route::get('/request/get-all/{user_id}', [RequestController::class, 'get_all']);
+Route::post('/request/accept', [RequestController::class, 'accept']);
+Route::post('/request/decline', [RequestController::class, 'decline']);

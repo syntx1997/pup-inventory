@@ -75,7 +75,7 @@
             <li class="side-nav-item">
                 <a href="{{ $dashboardLink.'requests' }}" class="side-nav-link">
                     <i class="uil-file"></i>
-                    <span class="badge bg-secondary text-light float-end">0</span>
+                    <span class="badge bg-secondary text-light float-end">{{ $totalRequests ?? 0 }}</span>
                     <span> Requests </span>
                 </a>
             </li>

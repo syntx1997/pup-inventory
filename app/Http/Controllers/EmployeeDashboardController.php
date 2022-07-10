@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Models\Transaction;
 
 class EmployeeDashboardController extends Controller
 {
@@ -10,6 +9,8 @@ class EmployeeDashboardController extends Controller
     protected $_partials_;
     protected $_fragment_;
     protected $_dashboardLink_;
+
+    protected $_totalRequests_;
 
     public function __construct() {
         $this->_view_ = 'pages.dashboard.employee.';
@@ -25,9 +26,10 @@ class EmployeeDashboardController extends Controller
         $title = 'Employee Dashboard';
         $fragment = $this->_fragment_;
         $dashboardLink = $this->_dashboardLink_;
+        $totalRequests = count(Transaction::where(['user_id' => auth()->user()->id, 'status' => 'On Process'])->get());
 
         return view($this->_view_.'index', compact(
-            'title', 'fragment', 'dashboardLink'
+            'title', 'fragment', 'dashboardLink', 'totalRequests'
         ));
     }
 
@@ -36,9 +38,10 @@ class EmployeeDashboardController extends Controller
         $fragment = $this->_fragment_;
         $dashboardLink = $this->_dashboardLink_;
         $js = asset('js'.$dashboardLink.'requests.js');
+        $totalRequests = count(Transaction::where(['user_id' => auth()->user()->id, 'status' => 'On Process'])->get());
 
         return view($this->_view_.'requests', compact(
-            'title', 'fragment', 'dashboardLink', 'js'
+            'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
         ));
     }
 }

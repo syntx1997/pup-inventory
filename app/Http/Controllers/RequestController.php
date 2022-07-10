@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Request as RequestModel;
 use App\Models\User;
 use App\Models\Item;
+use Illuminate\Support\Facades\Validator;
 
 
 class RequestController extends Controller
@@ -68,5 +69,88 @@ class RequestController extends Controller
         }
 
         return response()->json(['data' => $data]);
+    }
+
+    public function all() {
+        $data = [];
+
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction) {
+            $items = [];
+            $user = User::where('id', $transaction->user_id)->first();
+
+            $requests = RequestModel::where('transaction_id', $transaction->id)->get();
+            foreach ($requests as $request) {
+                $selectedItem = Item::where('id', $request->item_id)->first();
+                $items[] = [
+                    'id' => $request->id,
+                    'item_id' => $selectedItem->id,
+                    'name' => $selectedItem->name,
+                    'description' => $selectedItem->description,
+                    'quantity' => $request->quantity
+                ];
+            }
+
+            $attribute = <<<HERE
+                data-id="$transaction->id"
+            HERE;
+
+            $actions = <<<HERE
+                <buttton id="accept-btn" type="button" class="btn btn-link text-success" $attribute><i class="uil-thumbs-up"></i> Accept</button>
+                <buttton id="decline-btn" type="button" class="btn btn-link text-danger" $attribute><i class="uil-thumbs-down"></i> Decline</button>
+            HERE;
+
+            $data[] = [
+                'id' => $transaction->id,
+                'transaction_id' => $transaction->transaction_id,
+                'name' => $user->name,
+                'designation' => $user->designation,
+                'office' => $user->office,
+                'items' => $items,
+                'items_html' => '',
+                'status' => $transaction->status,
+                'message' => $transaction->message,
+                'actions' => $actions
+            ];
+        }
+
+        return response()->json(['data' => $data]);
+    }
+
+    public function accept(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return response(['errors' => $validator->errors()], 491);
+        }
+
+        $transaction = Transaction::find($request->id);
+        $transaction->update([
+            'status' => 'Accepted',
+            'message' => $request->message
+        ]);
+
+        return response(['message' => 'Employee request has been accepted.']);
+    }
+
+    public function decline(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'message' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return response(['errors' => $validator->errors()], 491);
+        }
+
+        $transaction = Transaction::find($request->id);
+        $transaction->update([
+            'status' => 'Desclined',
+            'message' => $request->message
+        ]);
+
+        return response(['message' => 'Employee request has been declined.']);
     }
 }

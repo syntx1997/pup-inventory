@@ -1,4 +1,4 @@
-<x-main-template :title="$title ?? ''" :fragment="$fragment ?? ''" :dashboardLink="$dashboardLink ?? ''" :js="$js ?? ''">
+<x-main-template :title="$title ?? ''" :fragment="$fragment ?? ''" :dashboardLink="$dashboardLink ?? ''" :js="$js ?? ''" :totalRequests="$totalRequests">
     @include('partials._page-title')
 
     <div class="card">
