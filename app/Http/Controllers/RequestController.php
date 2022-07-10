@@ -11,6 +11,6 @@ class RequestController extends Controller
             return response(['message' => 'You dont select any items to request.'], 401);
         }
 
-        return '';
+        return response()->json($request->all());
     }
 }
