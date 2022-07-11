@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use App\Models\User;
 
 class EmployeeController extends Controller
@@ -64,27 +63,26 @@ class EmployeeController extends Controller
             'name' => 'required',
             'designation' => 'required',
             'office' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'password' => 'required'
         ]);
 
         if($validator->fails()) {
             return response(['errors' => $validator->errors()], 401);
         }
 
-        $password = Str::random(8);
-
         $employee = [
             'name' => $request->name,
             'designation' => $request->designation,
             'office' => $request->office,
             'email' => $request->email,
-            'password' => bcrypt($password),
+            'password' => bcrypt($request->password),
             'role' => $request->role
         ];
 
         User::create($employee);
 
-        return response(['message' => 'Employee added successfully!', 'password' => $password], 201);
+        return response(['message' => 'Employee added successfully!'], 201);
     }
 
     public function edit(Request $request) {

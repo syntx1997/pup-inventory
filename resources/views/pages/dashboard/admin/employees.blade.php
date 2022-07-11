@@ -66,8 +66,11 @@
                             <input type="email" name="email" class="form-control" placeholder="Enter the employee's email">
                         </div>
                     </div>
-                    <div class="alert alert-info">
-                        <i class="uil-info-circle"></i> Note: Password will be generated automatically by the system and will be sent to this employee's email.
+                    <div class="form-group mb-2 row">
+                        <label class="col-3">Password</label>
+                        <div class="col-9">
+                            <input type="password" name="password" class="form-control" placeholder="Enter the employee's password">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

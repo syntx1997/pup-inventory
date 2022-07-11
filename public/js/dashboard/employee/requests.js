@@ -244,6 +244,17 @@ function more_details(data) {
         `;
     });
 
+    let message = '';
+
+    if(data.message != null) {
+        message = `
+            <p>
+                <strong>Message:</strong> <br>
+                ${data.message}
+            </p>
+        `;
+    }
+
    return `
         <h5 class="text-center"><strong>Items Request/s (${data.items.length})</strong></h5>
         <table class="table border" style="width: 100%">
@@ -258,5 +269,6 @@ function more_details(data) {
                 ${items}
             </tbody>
         </table>
+        ${message}
    `;
 }
