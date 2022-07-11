@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,7 @@ Route::get('/request/all', [RequestController::class, 'all']);
 Route::get('/request/get-all/{user_id}', [RequestController::class, 'get_all']);
 Route::post('/request/accept', [RequestController::class, 'accept']);
 Route::post('/request/decline', [RequestController::class, 'decline']);
+
+// Settings
+Route::post('/setting/information', [SettingController::class, 'update_info']);
+Route::post('/setting/password', [SettingController::class, 'update_password']);
