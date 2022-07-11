@@ -92,11 +92,11 @@
 {{--        </li>--}}
 
 
-        {{--        <li class="notification-list">--}}
-        {{--            <a class="nav-link end-bar-toggle" href="javascript: void(0);">--}}
-        {{--                <i class="dripicons-gear noti-icon"></i>--}}
-        {{--            </a>--}}
-        {{--        </li>--}}
+                <li class="notification-list">
+                    <a class="nav-link end-bar-toggle" href="{{ $dashboardLink.'settings' }}">
+                        <i class="dripicons-gear noti-icon"></i>
+                    </a>
+                </li>
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -110,10 +110,10 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                 <!-- item-->
-                {{--                <a href="javascript:void(0);" class="dropdown-item notify-item">--}}
-                {{--                    <i class="mdi mdi-account-edit me-1"></i>--}}
-                {{--                    <span>Settings</span>--}}
-                {{--                </a>--}}
+                                <a href="{{ $dashboardLink.'settings' }}" class="dropdown-item notify-item">
+                                    <i class="mdi mdi-account-edit me-1"></i>
+                                    <span>Settings</span>
+                                </a>
 
                 <!-- item-->
                 <button class="dropdown-item notify-item" id="logout-btn">

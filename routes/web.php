@@ -48,6 +48,7 @@ Route::middleware('auth')->prefix('/dashboard')->group(function (){
     Route::middleware('employee.only')->prefix('employee')->group(function (){
         Route::get('/index', [EmployeeDashboardController::class, 'index']);
         Route::get('/requests', [EmployeeDashboardController::class, 'requests']);
+        Route::get('/settings', [EmployeeDashboardController::class, 'settings']);
     });
 
 });

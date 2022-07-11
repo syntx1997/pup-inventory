@@ -10,8 +10,6 @@ class EmployeeDashboardController extends Controller
     protected $_fragment_;
     protected $_dashboardLink_;
 
-    protected $_totalRequests_;
-
     public function __construct() {
         $this->_view_ = 'pages.dashboard.employee.';
         $this->_partials_ = 'partials.dashboard.employee.';
@@ -42,6 +40,18 @@ class EmployeeDashboardController extends Controller
         $totalRequests = count(Transaction::where(['user_id' => auth()->user()->id, 'status' => 'On Process'])->get());
 
         return view($this->_view_.'requests', compact(
+            'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
+        ));
+    }
+
+    public function settings() {
+        $title = 'Settings';
+        $fragment = $this->_fragment_;
+        $dashboardLink = $this->_dashboardLink_;
+        $js = asset('js/dashboard/settings.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
+
+        return view($this->_view_.'settings', compact(
             'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
         ));
     }
