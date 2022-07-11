@@ -91,6 +91,9 @@
                         <li>
                             <a href="{{ $dashboardLink.'employees' }}">Employees</a>
                         </li>
+                        <li>
+                            <a href="{{ $dashboardLink.'archived' }}">Archived</a>
+                        </li>
                     </ul>
                 </div>
             </li>

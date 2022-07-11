@@ -40,6 +40,8 @@ Route::middleware('auth')->prefix('/dashboard')->group(function (){
         Route::get('/inventory', [AdminDashboardController::class, 'inventory']);
         Route::get('/requests', [AdminDashboardController::class, 'requests']);
         Route::get('/employees', [AdminDashboardController::class, 'employees']);
+        Route::get('/archived', [AdminDashboardController::class, 'archived']);
+        Route::get('/settings', [AdminDashboardController::class, 'settings']);
     });
 
     // Employee

@@ -108,4 +108,28 @@ class AdminDashboardController extends Controller
             'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
         ));
     }
+
+    public function archived() {
+        $title = 'Archived';
+        $fragment = $this->_fragment_;
+        $dashboardLink = '/dashboard/admin/';
+        $js = asset('js'.$dashboardLink.'archived.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
+
+        return view($this->_view_.'archived', compact(
+            'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
+        ));
+    }
+
+    public function settings() {
+        $title = 'Settings';
+        $fragment = $this->_fragment_;
+        $dashboardLink = '/dashboard/admin/';
+        $js = asset('js/dashboard/settings.js');
+        $totalRequests = count(Transaction::where('status', 'On Process')->get());
+
+        return view($this->_view_.'settings', compact(
+            'title', 'fragment', 'dashboardLink', 'js', 'totalRequests'
+        ));
+    }
 }

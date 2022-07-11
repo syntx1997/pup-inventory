@@ -23,14 +23,15 @@ class EmployeeDashboardController extends Controller
     }
 
     public function index() {
-        $title = 'Employee Dashboard';
-        $fragment = $this->_fragment_;
-        $dashboardLink = $this->_dashboardLink_;
-        $totalRequests = count(Transaction::where(['user_id' => auth()->user()->id, 'status' => 'On Process'])->get());
-
-        return view($this->_view_.'index', compact(
-            'title', 'fragment', 'dashboardLink', 'totalRequests'
-        ));
+//        $title = 'Employee Dashboard';
+//        $fragment = $this->_fragment_;
+//        $dashboardLink = $this->_dashboardLink_;
+//        $totalRequests = count(Transaction::where(['user_id' => auth()->user()->id, 'status' => 'On Process'])->get());
+//
+//        return view($this->_view_.'index', compact(
+//            'title', 'fragment', 'dashboardLink', 'totalRequests'
+//        ));
+        return redirect($this->_dashboardLink_.'requests');
     }
 
     public function requests() {

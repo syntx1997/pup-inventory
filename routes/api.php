@@ -45,6 +45,7 @@ Route::get('/employee', [EmployeeController::class, 'get_all']);
 Route::post('/employee', [EmployeeController::class, 'add']);
 Route::put('/employee', [EmployeeController::class, 'edit']);
 Route::post('/employee/archive', [EmployeeController::class, 'archive']);
+Route::get('/employee/archive', [EmployeeController::class, 'get_all_archived']);
 
 // Request
 Route::post('/request', [RequestController::class, 'add']);

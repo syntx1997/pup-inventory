@@ -15,6 +15,7 @@
                 <thead>
                 <tr>
                     <th class="text-center"></th>
+                    <th class="text-center">Request Date</th>
                     <th class="text-center">Transaction ID</th>
                     <th class="text-center">Requestor</th>
                     <th class="text-center">Office</th>

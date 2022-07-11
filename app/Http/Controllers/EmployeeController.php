@@ -34,6 +34,31 @@ class EmployeeController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    public function get_all_archived() {
+        $data = [];
+
+        $employees = User::where([
+            'role' => 'Employee',
+            'status' => 0
+        ])->get();
+        foreach ($employees as $employee) {
+            $attributes = 'data-id="'.$employee->id.'" data-name="'.$employee->name.'" data-designation="'.$employee->designation.'" data-office="'.$employee->office.'" data-email="'.$employee->email.'"';
+            $actions =  '<button id="edit-btn" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" '.$attributes.'><i class="uil-edit text-success"></i></button>'.
+                '<button id="archive-btn" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive" '.$attributes.'><i class="uil-archive text-warning"></i></button>';
+
+            $data[] = [
+                'id' => $employee->id,
+                'name' => $employee->name,
+                'email' => $employee->email,
+                'designation' => $employee->designation,
+                'office' => $employee->office,
+                'actions' => $actions
+            ];
+        }
+
+        return response()->json(['data' => $data]);
+    }
+
     public function add(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required',

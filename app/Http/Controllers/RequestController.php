@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Request as RequestModel;
 use App\Models\User;
 use App\Models\Item;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -38,7 +39,7 @@ class RequestController extends Controller
     public function get_all($user_id) {
         $data = [];
 
-        $transactions = Transaction::where('user_id', $user_id)->get();
+        $transactions = Transaction::where('user_id', $user_id)->get()->sortByDesc('id');
         foreach ($transactions as $transaction) {
             $items = [];
             $user = User::where('id', $transaction->user_id)->first();
@@ -57,6 +58,7 @@ class RequestController extends Controller
 
             $data[] = [
                 'id' => $transaction->id,
+                'request_date' => Carbon::parse($transaction->created_at)->format('M d, Y'),
                 'transaction_id' => $transaction->transaction_id,
                 'name' => $user->name,
                 'designation' => $user->designation,
@@ -64,6 +66,7 @@ class RequestController extends Controller
                 'items' => $items,
                 'items_html' => '',
                 'status' => $transaction->status,
+                'status_html' => $this->status_html($transaction->status),
                 'message' => $transaction->message
             ];
         }
@@ -74,7 +77,7 @@ class RequestController extends Controller
     public function all() {
         $data = [];
 
-        $transactions = Transaction::all();
+        $transactions = Transaction::all()->sortByDesc('id');
         foreach ($transactions as $transaction) {
             $items = [];
             $user = User::where('id', $transaction->user_id)->first();
@@ -91,17 +94,22 @@ class RequestController extends Controller
                 ];
             }
 
-            $attribute = <<<HERE
-                data-id="$transaction->id"
-            HERE;
+            if($transaction->status == 'On Process') {
+                $attribute = <<<HERE
+                    data-id="$transaction->id" data-transaction_id="$transaction->transaction_id" data-requestor="$user->name"
+                HERE;
 
-            $actions = <<<HERE
-                <buttton id="accept-btn" type="button" class="btn btn-link text-success" $attribute><i class="uil-thumbs-up"></i> Accept</button>
-                <buttton id="decline-btn" type="button" class="btn btn-link text-danger" $attribute><i class="uil-thumbs-down"></i> Decline</button>
-            HERE;
+                $actions = <<<HERE
+                    <button id="accept-btn" type="button" class="btn btn-link text-success" $attribute><i class="uil-thumbs-up"></i> Accept</button>
+                    <button id="decline-btn" type="button" class="btn btn-link text-danger" $attribute><i class="uil-thumbs-down"></i> Decline</button>
+                HERE;
+            } else {
+                $actions = $this->status_html($transaction->status);
+            }
 
             $data[] = [
                 'id' => $transaction->id,
+                'request_date' => Carbon::parse($transaction->created_at)->format('M d, Y'),
                 'transaction_id' => $transaction->transaction_id,
                 'name' => $user->name,
                 'designation' => $user->designation,
@@ -109,6 +117,7 @@ class RequestController extends Controller
                 'items' => $items,
                 'items_html' => '',
                 'status' => $transaction->status,
+                'status_html' => $this->status_html($transaction->status),
                 'message' => $transaction->message,
                 'actions' => $actions
             ];
@@ -132,6 +141,14 @@ class RequestController extends Controller
             'message' => $request->message
         ]);
 
+        $requests = RequestModel::where('transaction_id', $request->id)->get();
+        foreach ($requests as $request) {
+            $item = Item::where('id', $request->item_id)->first();
+            $item->update([
+                'stock' => ($item->stock - $request->quantity)
+            ]);
+        }
+
         return response(['message' => 'Employee request has been accepted.']);
     }
 
@@ -147,10 +164,20 @@ class RequestController extends Controller
 
         $transaction = Transaction::find($request->id);
         $transaction->update([
-            'status' => 'Desclined',
+            'status' => 'Declined',
             'message' => $request->message
         ]);
 
         return response(['message' => 'Employee request has been declined.']);
+    }
+
+    private function status_html($status) {
+        if($status == 'On Process') {
+            return '<span class="badge badge-outline-warning">'.$status.'</span>';
+        } else if ($status == 'Accepted') {
+            return '<span class="badge badge-outline-success">'.$status.'</span>';
+        } else if ($status == 'Declined') {
+            return '<span class="badge badge-outline-danger">'.$status.'</span>';
+        }
     }
 }

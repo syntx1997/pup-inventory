@@ -35,14 +35,14 @@
             </li>
             <li class="side-nav-title side-nav-item">Navigation</li>
 
-            <li class="side-nav-item">
-                <a href="{{ $dashboardLink.'index' }}" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
-                    <span> Dashboard </span>
-                </a>
-            </li>
+{{--            <li class="side-nav-item">--}}
+{{--                <a href="{{ $dashboardLink.'index' }}" class="side-nav-link">--}}
+{{--                    <i class="uil-home-alt"></i>--}}
+{{--                    <span> Dashboard </span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
-            <li class="side-nav-title side-nav-item">Setup</li>
+{{--            <li class="side-nav-title side-nav-item">Setup</li>--}}
 
             <li class="side-nav-item">
                 <a href="{{ $dashboardLink.'requests' }}" class="side-nav-link">
