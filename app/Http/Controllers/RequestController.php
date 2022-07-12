@@ -87,7 +87,7 @@ class RequestController extends Controller
                 $selectedItem = Item::where('id', $request->item_id)->first();
                 $items[] = [
                     'id' => $request->id,
-                    'item_id' => $selectedItem->id,
+                    'item_id' => $selectedItem->id ?? 0,
                     'name' => $selectedItem->name,
                     'description' => $selectedItem->description,
                     'quantity' => $request->quantity
