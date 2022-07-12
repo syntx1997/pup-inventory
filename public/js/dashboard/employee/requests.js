@@ -137,9 +137,9 @@ $(function (){
                                     <td class="text-center">${row.stock}</td>
                                     <td class="text-center">
                                         <div class="input-group input-group-sm flex-nowrap">
-                                            <button type="button" class="input-group-text sub border-dark" id="addon-wrapping">-</button>
+                                            <button type="button" class="input-group-text sub border-dark" id="addon-wrapping" data-stock="${row.stock}">-</button>
                                             <input id="quantity" name="item[${row.id}][quantity]" type="text" class="form-control text-center border-dark bg-white" min="1" max="'+ row.stock +'" value="1" style="width: 20px !important" required readonly>
-                                            <button type="button" class="input-group-text add border-dark" id="addon-wrapping">+</button>
+                                            <button type="button" class="input-group-text add border-dark" id="addon-wrapping" data-stock="${row.stock}">+</button>
                                             <input name="item[${row.id}][item_id]" type="hidden" value="${row.id}">
                                         </div>
                                     </td>
@@ -215,7 +215,8 @@ $(document).on('click', '#delete-req-item-btn', function (){
 });
 
 $(document).on('click', '.add', function (){
-    if($(this).prev().val() < 3) {
+    const data = $(this).data();
+    if($(this).prev().val() < data.stock) {
         $(this).prev().val(+$(this).prev().val() + 1);
     }
 });
