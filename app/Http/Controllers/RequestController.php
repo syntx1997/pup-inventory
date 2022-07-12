@@ -89,7 +89,7 @@ class RequestController extends Controller
                     'id' => $request->id,
                     'item_id' => $selectedItem->id ?? 0,
                     'name' => $selectedItem->name ?? '<span class="badge badge-outline-danger">Item was removed</span>',
-                    'description' => $selectedItem->description,
+                    'description' => $selectedItem->description ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>',
                     'quantity' => $request->quantity
                 ];
             }
