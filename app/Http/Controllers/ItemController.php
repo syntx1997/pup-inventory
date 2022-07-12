@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Validator;
@@ -35,9 +36,17 @@ class ItemController extends Controller
             }
 
             $stocks = [];
-            $stocksData = Stock::find($item->id);
+            $stocksData = Stock::where('item_id', $item->id);
             if($stocksData !== null) {
-                $stocks = $stocksData->get();
+                $stocksData = $stocksData->get();
+                foreach ($stocksData as $stock) {
+                    $stocks[] = [
+                        'created_at' => Carbon::parse($stock->created_at)->format('M d, Y'),
+                        'quantity' => $stock->quantity,
+                        'cost' => $stock->cost,
+                        'supplier' => $stock->supplier
+                    ];
+                }
             }
 
             $data[] = [
