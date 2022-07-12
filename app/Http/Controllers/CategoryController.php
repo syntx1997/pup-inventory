@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
 use Illuminate\Validation\Rule;
@@ -69,12 +71,20 @@ class CategoryController extends Controller
 
     public function delete(Request $request) {
         $validator = Validator::make($request->all(), [
-            'id' => 'required'
+            'id' => 'required',
+            'user_id' => 'required',
+            'password' => 'required'
         ]);
 
         if($validator->fails()) {
             return response(['errors' => $validator->errors()], 401);
         }
+
+        $user = User::find($request->user_id);
+        if(!$user || !Hash::check($request->password, $user->password)) {
+            return response(['errors' => ['password' => 'Password is incorrect!']], 401);
+        }
+
 
         $category = Category::find($request->id);
         $category->delete();

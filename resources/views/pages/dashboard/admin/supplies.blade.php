@@ -115,6 +115,7 @@
     </div>
 
     @include('partials._restock-modal')
+    @include('partials._delete-modal')
 
     <div id="critical-modal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">

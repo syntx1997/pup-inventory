@@ -78,4 +78,6 @@
         </div>
     </div>
 
+    @include('partials._delete-modal')
+
 </x-main-template>

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
 use App\Models\Stock;
+use App\Models\User;
 
 class ItemController extends Controller
 {
@@ -103,10 +105,17 @@ class ItemController extends Controller
     public function delete(Request $request) {
         $validator = Validator::make($request->all(), [
             'id' => 'required',
+            'user_id' => 'required',
+            'password' => 'required'
         ]);
 
         if($validator->fails()) {
             return response(['errors' => $validator->errors()], 401);
+        }
+
+        $user = User::find($request->user_id);
+        if(!$user || !Hash::check($request->password, $user->password)) {
+            return response(['errors' => ['password' => 'Password is incorrect!']], 401);
         }
 
         $item = Item::find($request->id);
