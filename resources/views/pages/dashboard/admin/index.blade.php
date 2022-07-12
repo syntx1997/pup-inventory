@@ -75,7 +75,7 @@
                                 <td class="text-center">{{ \Carbon\Carbon::parse($request->created_at)->format('M d, Y') }}</td>
                                 <td class="text-center">{{ $user->name }}</td>
                                 <td class="text-center">{{ $user->office }}</td>
-                                <td colspan="text-center">{{ $item->name }}</td>
+                                <td colspan="text-center">{{ $item->name ?? '' }}</td>
                                 <td colspan="text-center">{{ $request->quantity }}</td>
                             </tr>
                         @endforeach
