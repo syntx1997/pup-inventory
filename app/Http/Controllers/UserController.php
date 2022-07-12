@@ -23,7 +23,7 @@ class UserController extends Controller
 
         // check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
-            RateLimiter::hit($this->throttleKey(), $seconds = 3600);
+            RateLimiter::hit($this->throttleKey(), $seconds = 60);
             return response([
                 'message' => 'Invalid credentials!'
             ], 401);
@@ -89,6 +89,6 @@ class UserController extends Controller
             return;
         }
 
-        throw new \Exception('IP address banned. Too many login attempts.');
+        throw new \Exception('IP address banned. Too many login attempts. You are not allowed to login for 1 minute.');
     }
 }
