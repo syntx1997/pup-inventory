@@ -49,9 +49,9 @@ class RequestController extends Controller
                 $selectedItem = Item::where('id', $request->item_id)->first();
                 $items[] = [
                     'id' => $request->id,
-                    'item_id' => $selectedItem->id,
-                    'name' => $selectedItem->name,
-                    'description' => $selectedItem->description,
+                    'item_id' => $selectedItem->id ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>',
+                    'name' => $selectedItem->name ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>',
+                    'description' => $selectedItem->description ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>',
                     'quantity' => $request->quantity
                 ];
             }
@@ -87,8 +87,8 @@ class RequestController extends Controller
                 $selectedItem = Item::where('id', $request->item_id)->first();
                 $items[] = [
                     'id' => $request->id,
-                    'item_id' => $selectedItem->id ?? 0,
-                    'name' => $selectedItem->name ?? '<span class="badge badge-outline-danger">Item was removed</span>',
+                    'item_id' => $selectedItem->id ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>',
+                    'name' => $selectedItem->name ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>',
                     'description' => $selectedItem->description ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>',
                     'quantity' => $request->quantity
                 ];
