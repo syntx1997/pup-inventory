@@ -20,7 +20,7 @@ class ItemController extends Controller
         foreach ($items as $item) {
 
             $category = Category::where('id', $item->category_id)->first();
-            $category_name = $category->name;
+            $category_name = $category->name ?? '<span class="badge badge-outline-danger"><i class="uil-times"></i></span>';
 
             $attribute =    ' data-id="'.$item->id.'" data-category_id="'.$item->category_id.'" data-name="'.$item->name.'""
                               data-description="'.$item->description.'" data-stock="'.$item->stock.'" data-critical="'.$item->critical.'"';
