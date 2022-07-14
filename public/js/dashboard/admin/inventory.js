@@ -4,6 +4,80 @@ const equipmentTable = $('#equipment-table');
 const api = '/api/item/';
 
 $(function (){
+
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+    }, function(start, end, label) {
+        let startDate = start.format('MM/DD/YYYY');
+        let endDate = end.format('MM/DD/YYYY');
+
+        let data = {
+            'startDate': startDate,
+            'endDate': endDate,
+        }
+
+        supplyTable.DataTable({
+            "serverSide": true,
+            "ajax": {
+                "url": api+'get-all/by-date-range',
+                "type": "POST",
+                "data": function(d){
+                    d.type = 'supply';
+                    d.startDate = startDate;
+                    d.endDate = endDate;
+                }
+            },
+            'columns': [
+                {
+                    'className': 'details-control',
+                    'orderable': false,
+                    'data': '',
+                    'defaultContent': ''
+                },
+                {
+                    'className': 'text-center',
+                    'orderable': false,
+                    'data': 'name'
+                },
+                {
+                    'className': 'text-center',
+                    'orderable': false,
+                    'data': 'description'
+                },
+                {
+                    'className': 'text-center',
+                    'orderable': false,
+                    'data': 'stock'
+                },
+                {
+                    'className': 'text-center',
+                    'orderable': false,
+                    'data': 'stock_status'
+                }
+            ],
+            language: {
+                paginate: {
+                    previous: "<i class='mdi mdi-chevron-left'>",
+                    next: "<i class='mdi mdi-chevron-right'>"
+                },
+                info: "Showing supplies _START_ to _END_ of _TOTAL_",
+                lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="5">5</option><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> supplies'
+            },
+            pageLength: 5,
+            order: [
+                [1, "asc"]
+            ],
+            drawCallback: function() {
+                $(".dataTables_paginate > .pagination").addClass("pagination-rounded"), $("#products-datatable_length label").addClass("form-label")
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "destroy" : true
+        });
+    });
+
     const supplyDataTable = supplyTable.DataTable({
         'ajax': api + 'get-all/supply',
         'columns': [

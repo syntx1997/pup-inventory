@@ -41,6 +41,10 @@ function reloadDataTable(table) {
     table.DataTable().ajax.reload(null);
 }
 
+function loadDataTable(table, api){
+    table.ajax.url(api).load();
+}
+
 function deleteData(form,api, submitBtn, table) {
     $.ajax({
         url: api,

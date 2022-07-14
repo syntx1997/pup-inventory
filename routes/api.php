@@ -35,6 +35,7 @@ Route::delete('/category', [CategoryController::class, 'delete']);
 
 // Item | Supply or Equipment
 Route::get('/item/get-all/{type}', [ItemController::class, 'get_all']);
+Route::post('/item/get-all/by-date-range', [ItemController::class, 'get_all_by_date_range']);
 Route::post('/item/restock', [ItemController::class, 'restock']);
 Route::post('/item/set-critical', [ItemController::class, 'set_critical']);
 Route::post('/item', [ItemController::class, 'add']);

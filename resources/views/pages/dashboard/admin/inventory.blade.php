@@ -2,6 +2,9 @@
     @include('partials._page-title')
 
     <div class="card">
+        <div class="card-header">
+            <input type="text" name="daterange" class="form-control text-center float-end" style="width: 300px" value="07/01/2022 - {{ \Carbon\Carbon::parse(\Carbon\Carbon::now())->format('m/d/Y') }}">
+        </div>
         <ul class="nav nav-tabs nav-bordered mb-3">
             <li class="nav-item p-2 pb-0">
                 <a href="#supplies-tb" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
